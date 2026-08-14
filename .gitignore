@@ -1,0 +1,29 @@
+# --- Datos intermedios / pesados (regenerables por el pipeline) ---
+datos/mega_raw.json
+datos/mega_progress.json
+datos/valencia_negocios.json
+datos/raw_data.json
+datos/businesses.json
+
+# --- Entornos de Python (NUNCA se suben) ---
+scrapling-env/
+.venv/
+venv/
+env/
+ENV/
+
+# --- Cachés y temporales de Python ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+
+# --- Imágenes de trabajo / previsualizaciones ---
+datos/preview_*.png
+datos/test_*.png
+datos/_*.py
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
