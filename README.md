@@ -5,7 +5,7 @@
 
 **Fecha de captura de datos:** 23 de julio de 2026 · **Ámbito:** Valencia ciudad y área metropolitana.
 
-![Distribución de los 1.991 leads calientes sobre el mapa de Valencia](datos/mapa_leads.png)
+![Distribución de los 1.991 leads calientes sobre el mapa de Valencia](img/mapa_leads.png)
 
 ---
 
@@ -116,7 +116,7 @@ Resultado acotado entre 0 y 100. **Leads "calientes" = score ≥ 75** → **1.99
 7. **Foto fija en el tiempo.** `rating` y `resenas` son del día de captura y cambian; además las reseñas tienen **sesgo de autoselección** (opina quien está muy contento o muy enfadado).
 8. **El score no llega a 100.** Con el modelo sumable, el máximo real es ~82 (50+15+14+3). Es un **ranking relativo**, no un porcentaje absoluto.
 9. **El nº de reseñas es un proxy imperfecto de tamaño** (un negocio pequeño puede tener muchas reseñas y viceversa).
-10. **Sin datos de contacto.** Este dataset no incluye teléfono/email (se descartaron por no ser fiables desde el listado). Son "leads a investigar", no listos para llamar. *(Existe un entregable complementario de 159 negocios con contacto enriquecido para la fase de activación.)*
+10. **Sin datos de contacto.** Este dataset no incluye teléfono/email (se descartaron por no ser fiables desde el listado). Son "leads a investigar", no listos para llamar. *(La fase de activación con contacto enriquecido se aborda como proyecto aparte.)*
 11. **El censo es una muestra grande, no un registro completo.** Maps limita cada búsqueda a ~120 resultados; la matriz de categorías × zonas lo mitiga, pero no garantiza el 100 % del padrón comercial.
 
 ---
@@ -140,10 +140,10 @@ Resultado acotado entre 0 y 100. **Leads "calientes" = score ≥ 75** → **1.99
 
 | Archivo | Qué muestra |
 |---|---|
-| `score_por_sector.png` | Score medio de lead por sector |
-| `leads_por_sector.png` | Nº de leads calientes por sector |
-| `mapa_leads.png` | Mapa geográfico de leads sobre Valencia (mapa base real) |
-| `Analisis_Negocios_Valencia.html` | Dashboard interactivo (KPIs, gráficas, mapa, explorador) |
+| `img/score_por_sector.png` | Score medio de lead por sector |
+| `img/leads_por_sector.png` | Nº de leads calientes por sector |
+| `img/mapa_leads.png` | Mapa geográfico de leads sobre Valencia (mapa base real) |
+| `dashboard/Analisis_Negocios_Valencia.html` | Dashboard interactivo (KPIs, gráficas, mapa, explorador) |
 
 **Estética:** fondo oscuro `#0e1b24`, acento ámbar `#e8b45c`, contexto neutro `#8fa3b0`, texto `#e6edf2`. Principio: contexto que se retira + un acento cálido.
 
@@ -166,14 +166,30 @@ El CSV puntuado (`valencia_negocios_scored.csv`) es la entrada para un **dashboa
 - **Visualización:** matplotlib + contextily (mapas), dashboard HTML autónomo.
 - **Siguiente:** Power BI.
 
-### Archivos del proyecto
+### Estructura del repositorio
 ```
-Prospeccion-Valencia/
-├── README.md                          ← este documento
-├── Analisis_Negocios_Valencia.html    ← dashboard interactivo
-├── mapa_leads.png / *_por_sector.png  ← visualizaciones
-└── datos/
-    ├── valencia_negocios_scored.csv   ← dataset final con score
-    ├── valencia_negocios.csv / .json  ← censo completo
-    └── *.py                           ← scripts del pipeline
+analisis-leads-valencia/
+├── README.md
+├── dashboard/
+│   └── Analisis_Negocios_Valencia.html   ← dashboard interactivo
+├── src/
+│   ├── 1_scraping.py      ← extracción de Google Maps
+│   ├── 2_procesado.py     ← limpieza + distritos + precio (ETL)
+│   ├── 3_analisis.py      ← modelo de lead scoring + visualizaciones
+│   └── 4_dashboard.py     ← generación del dashboard HTML
+├── data/
+│   ├── valencia_negocios.csv          ← censo (entrada del scoring)
+│   └── valencia_negocios_scored.csv   ← censo con score (salida)
+└── img/
+    ├── mapa_leads.png
+    ├── score_por_sector.png
+    └── leads_por_sector.png
 ```
+
+### Reproducir el análisis
+El flujo es `1_scraping → 2_procesado → 3_analisis → 4_dashboard`. El script reejecutable es **`src/3_analisis.py`**, que lee `data/valencia_negocios.csv`, calcula el score y regenera el CSV puntuado y las imágenes:
+```bash
+pip install pandas matplotlib contextily
+python src/3_analisis.py
+```
+`1_scraping.py` y `2_procesado.py` son el pipeline que construyó el censo (requieren los datos crudos, no versionados).

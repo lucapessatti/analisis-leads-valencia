@@ -1,9 +1,5 @@
-# --- Datos intermedios / pesados (regenerables por el pipeline) ---
-datos/mega_raw.json
-datos/mega_progress.json
-datos/valencia_negocios.json
-datos/raw_data.json
-datos/businesses.json
+# --- Carpeta local de trabajo: datos crudos e intermedios (no se versionan) ---
+datos/
 
 # --- Entornos de Python (NUNCA se suben) ---
 scrapling-env/
@@ -19,9 +15,8 @@ __pycache__/
 *.egg-info/
 
 # --- Imágenes de trabajo / previsualizaciones ---
-datos/preview_*.png
-datos/test_*.png
-datos/_*.py
+img/preview_*.png
+img/test_*.png
 
 # --- Sistema operativo ---
 .DS_Store

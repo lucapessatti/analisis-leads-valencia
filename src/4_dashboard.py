@@ -162,8 +162,8 @@ footer b{color:var(--mut)}
       <button data-scope="all">+ Área metropolitana</button>
     </div>
     <div class="dl">
-      <a href="datos/valencia_negocios.csv" download>⬇ CSV</a>
-      <a href="datos/valencia_negocios.json" download>⬇ JSON</a>
+      <a href="../data/valencia_negocios.csv" download>⬇ Censo (CSV)</a>
+      <a href="../data/valencia_negocios_scored.csv" download>⬇ Con score (CSV)</a>
     </div>
   </div>
 

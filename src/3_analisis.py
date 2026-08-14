@@ -1,6 +1,10 @@
 import pandas as pd
+from pathlib import Path
 
-df = pd.read_csv(r"C:\Claude Code\Prospeccion-Valencia\datos\valencia_negocios.csv")
+# Raíz del proyecto (este script vive en src/, subimos un nivel)
+BASE = Path(__file__).resolve().parent.parent
+
+df = pd.read_csv(BASE / "data" / "valencia_negocios.csv")
 
 # ¿Cómo se reparten las VALORACIONES?
 print("--- RATING ---")
@@ -94,32 +98,28 @@ leads = df[(df["score"] >= 75) & (df["nucleo_urbano"] == True)] \
 print(f"{len(leads)} leads calientes en Valencia ciudad")
 
 # Guardar el dataset completo YA puntuado en un CSV nuevo
-df.to_csv(r"C:\Claude Code\Prospeccion-Valencia\datos\valencia_negocios_scored.csv",
+df.to_csv(BASE / "data" / "valencia_negocios_scored.csv",
           index=False, encoding="utf-8-sig")
 print("Guardado: valencia_negocios_scored.csv")
 
 import matplotlib.pyplot as plt
 
-# 1. Los datos: score medio por sector, ordenado de menor a mayor
+# score medio por sector, ordenado de menor a mayor
 medias = df.groupby("sector")["score"].mean().sort_values()
 
-# 2. Preparamos el lienzo
-plt.figure(figsize=(9, 5))
-
-# 3. Barras horizontales (mejor para nombres largos de sector)
-plt.barh(medias.index, medias.values, color="#14b8a6")
-
-# 4. Etiquetas y título
-plt.xlabel("Score medio de lead")
-plt.title("¿Qué sectores tienen los mejores leads? — Valencia")
-
-# 5. Escribimos el valor al final de cada barra
+fig, ax = plt.subplots(figsize=(9, 5.5))
+fig.patch.set_facecolor("#0e1b24")
+ax.set_facecolor("#0e1b24")
+ax.barh(medias.index, medias.values, color="#e8b45c")
 for i, v in enumerate(medias.values):
-    plt.text(v + 0.3, i, f"{v:.1f}", va="center")
-
-# 6. Ajustar, guardar y mostrar
+    ax.text(v + 0.3, i, f"{v:.1f}", va="center", color="#e6edf2", fontsize=10)
+ax.set_title("Score medio de lead por sector — Valencia", color="#e6edf2", fontsize=13)
+ax.set_xlabel("Score medio", color="#c2d0d8")
+ax.tick_params(colors="#c2d0d8")
+for spine in ax.spines.values():
+    spine.set_visible(False)
 plt.tight_layout()
-plt.savefig(r"C:\Claude Code\Prospeccion-Valencia\datos\score_por_sector.png", dpi=150)
+plt.savefig(BASE / "img" / "score_por_sector.png", dpi=150, bbox_inches="tight", facecolor="#0e1b24")
 plt.show()
 
 import numpy as np
@@ -158,7 +158,7 @@ ax.legend(loc="upper right", facecolor="#16303d", edgecolor="none",
           labelcolor="#e6edf2", framealpha=0.85)
 
 plt.tight_layout()
-plt.savefig(r"C:\Claude Code\Prospeccion-Valencia\datos\mapa_leads.png",
+plt.savefig(BASE / "img" / "mapa_leads.png",
             dpi=150, bbox_inches="tight", facecolor="#0e1b24")
 plt.show()
 
@@ -188,6 +188,6 @@ for spine in ax.spines.values():
     spine.set_visible(False)                # quita el recuadro → más limpio
 
 plt.tight_layout()
-plt.savefig(r"C:\Claude Code\Prospeccion-Valencia\datos\leads_por_sector.png",
+plt.savefig(BASE / "img" / "leads_por_sector.png",
             dpi=150, bbox_inches="tight", facecolor="#0e1b24")
 plt.show()
