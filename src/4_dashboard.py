@@ -2,8 +2,8 @@
 import json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "..", "Analisis_Negocios_Valencia.html")
-data = json.load(open(os.path.join(HERE, "valencia_negocios.json"), encoding="utf-8"))
+OUT = os.path.join(HERE, "..", "dashboard", "Analisis_Negocios_Valencia.html")
+data = json.load(open(os.path.join(HERE, "..", "datos", "valencia_negocios.json"), encoding="utf-8"))
 
 SECTORS = ["Hostelería","Panadería y dulces","Moda y complementos","Joyería","Belleza",
            "Salud","Retail y hogar","Servicios profesionales","Ocio y alojamiento"]
@@ -44,25 +44,25 @@ TEMPLATE = r"""<!DOCTYPE html>
 <title>Análisis de Negocios · Valencia</title>
 <style>
 :root{
-  --bg:#0a1620;--bg2:#0d1e2a;--panel:#102431;--panel2:#0f2028;
+  --bg:#0e1b24;--bg2:#0c1820;--panel:#132633;--panel2:#0f2029;
   --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
-  --tx:#e8f1ef;--mut:#8fa6ad;--mut2:#6d858d;
-  --teal:#2dd4a7;--teal-d:#0f766e;--blue:#4cc2ff;--navy:#13324a;
-  --gold:#e9c46a;--red:#f2657a;--amber:#f4a259;--purple:#c084fc;--pink:#f472b6;--lime:#a3e635;
-  --grad:linear-gradient(135deg,#0f766e,#14b8a6 55%,#3aa7d6);
+  --tx:#e8eef2;--mut:#95a6ad;--mut2:#6d828a;
+  --teal:#e8b45c;--teal-d:#a8752a;--blue:#7fa8c9;--navy:#182f3d;
+  --gold:#e9c46a;--red:#f2657a;--amber:#e8b45c;--purple:#c8a97a;--pink:#d8a48f;--lime:#c9b568;
+  --grad:linear-gradient(135deg,#cf8a2c,#e8b45c 55%,#f3cd84);
   --shadow:0 18px 40px -22px rgba(0,0,0,.7);--radius:18px;
 }
 html[data-theme="light"]{
-  --bg:#eef3f2;--bg2:#e6edeb;--panel:#ffffff;--panel2:#f5f9f8;
-  --line:rgba(12,40,44,.10);--line2:rgba(12,40,44,.16);
-  --tx:#0c2530;--mut:#5c757d;--mut2:#7b929a;
-  --teal:#0f9c7d;--teal-d:#0f766e;--blue:#1c7fb8;--navy:#dfeaf0;
-  --gold:#b98a20;--red:#d63c58;--amber:#d17e2a;--purple:#8b5cf6;--pink:#db2777;--lime:#65a30d;
-  --grad:linear-gradient(135deg,#0f766e,#14b8a6 55%,#2b8fbf);
-  --shadow:0 18px 44px -26px rgba(9,40,50,.4);
+  --bg:#f4f5f6;--bg2:#ececee;--panel:#ffffff;--panel2:#f8f9fa;
+  --line:rgba(20,30,35,.10);--line2:rgba(20,30,35,.16);
+  --tx:#1f2a30;--mut:#5c6b72;--mut2:#8a969c;
+  --teal:#bd7f26;--teal-d:#9a6a20;--blue:#3d7ea6;--navy:#e7ebee;
+  --gold:#b8860b;--red:#d63c58;--amber:#bd7f26;--purple:#8a7a52;--pink:#b07a6a;--lime:#9a8a2a;
+  --grad:linear-gradient(135deg,#e0a94f,#e8b45c 55%,#d18f2c);
+  --shadow:0 18px 44px -26px rgba(30,42,48,.18);
 }
 *{box-sizing:border-box}html,body{margin:0;padding:0}
-body{background:radial-gradient(1200px 700px at 82% -8%,rgba(45,212,167,.10),transparent 60%),radial-gradient(1000px 600px at -6% 4%,rgba(76,194,255,.09),transparent 55%),var(--bg);
+body{background:radial-gradient(1200px 700px at 82% -8%,rgba(232,180,92,.12),transparent 60%),radial-gradient(1000px 600px at -6% 4%,rgba(232,180,92,.06),transparent 55%),var(--bg);
   color:var(--tx);font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;transition:background .5s,color .3s}
 .serif{font-family:Georgia,"Times New Roman",serif}
 .wrap{max-width:1280px;margin:0 auto;padding:26px 20px 80px}
@@ -83,7 +83,7 @@ header.top{display:flex;justify-content:space-between;align-items:flex-start;gap
 .seg{display:flex;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;padding:4px;gap:2px}
 .seg button{background:none;border:none;color:var(--mut);padding:8px 15px;border-radius:9px;cursor:pointer;font-size:.85rem;font-weight:600;transition:.2s}
 .seg button.on{background:var(--grad);color:#04231d}
-html[data-theme="light"] .seg button.on{color:#fff}
+html[data-theme="light"] .seg button.on{color:#3a2a0e}
 .dl{margin-left:auto;display:flex;gap:8px}
 .dl a{text-decoration:none;background:var(--panel);border:1px solid var(--line2);color:var(--tx);padding:9px 14px;border-radius:11px;font-size:.82rem;font-weight:600;transition:.2s}
 .dl a:hover{border-color:var(--teal);transform:translateY(-1px)}
@@ -231,7 +231,7 @@ footer b{color:var(--mut)}
 const DB = __PAYLOAD__;
 const S = DB.sectors, D = DB.distritos, ROWS = DB.rows;
 // index map: 0 nombre,1 sectorIdx,2 cat,3 rating,4 resenas,5 precioBand,6 distIdx,7 lat,8 lng,9 nucleo,10 cid
-const SC = ["#2dd4a7","#e9c46a","#4cc2ff","#f4a259","#c084fc","#5eead4","#a3e635","#f472b6","#fb7185"];
+const SC = ["#e8b45c","#c9a227","#e08a5f","#b0895f","#a3b18a","#7fa8c9","#c98a9b","#8d9db0","#9c8fb0"];
 let scope = "nucleo";
 function active(){ return scope==="nucleo" ? ROWS.filter(r=>r[9]===1) : ROWS; }
 function fmt(n){ return (n||0).toLocaleString("es-ES"); }

@@ -3,6 +3,8 @@
 > De **15.160 negocios** en bruto a **1.991 leads cualificados y priorizados**.
 > Proyecto end-to-end: construcción del dataset (scraping) → limpieza → modelo de *lead scoring* interpretable → visualización → (siguiente fase) Power BI.
 
+**🔗 [Ver el dashboard interactivo en vivo »](https://lucapessatti.github.io/analisis-leads-valencia/dashboard/Analisis_Negocios_Valencia.html)**
+
 **Fecha de captura de datos:** 23 de julio de 2026 · **Ámbito:** Valencia ciudad y área metropolitana.
 
 ![Distribución de los 1.991 leads calientes sobre el mapa de Valencia](img/mapa_leads.png)
