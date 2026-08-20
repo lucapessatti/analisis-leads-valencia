@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
-import json, os, re
+import csv, os, json, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "dashboard", "Analisis_Negocios_Valencia.html")
-data = json.load(open(os.path.join(HERE, "..", "datos", "valencia_negocios.json"), encoding="utf-8"))
+
+def _num(v):
+    return float(v) if v not in (None, "") else None
+
+with open(os.path.join(HERE, "..", "data", "valencia_negocios.csv"), encoding="utf-8-sig", newline="") as f:
+    data = []
+    for row in csv.DictReader(f):
+        row["rating"] = _num(row["rating"])
+        row["resenas"] = int(_num(row["resenas"]) or 0)
+        row["lat"] = _num(row["lat"])
+        row["lng"] = _num(row["lng"])
+        row["nucleo_urbano"] = row["nucleo_urbano"] == "True"
+        data.append(row)
 
 SECTORS = ["Hostelería","Panadería y dulces","Moda y complementos","Joyería","Belleza",
            "Salud","Retail y hogar","Servicios profesionales","Ocio y alojamiento"]

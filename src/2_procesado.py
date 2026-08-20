@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import json, re, csv, math, os
+import json, re, csv, math
+from collections import Counter
 
 SRC = "mega_raw.json"
 raw = json.load(open(SRC, encoding="utf-8"))
@@ -75,7 +76,6 @@ with open("valencia_negocios.csv","w",encoding="utf-8-sig",newline="") as f:
     for o in out: w.writerow(o)
 
 # summary
-from collections import Counter
 n=len(out)
 print("TOTAL negocios:", n)
 print("sectores:", dict(Counter(o["sector"] for o in out)))

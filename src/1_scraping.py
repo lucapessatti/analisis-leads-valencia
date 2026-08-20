@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, io, sys, json, time, re
+import os, io, sys, json, re
 if __name__=="__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", line_buffering=True)
 from playwright.sync_api import sync_playwright

@@ -1,3 +1,5 @@
+<img src="branding/logo.png" width="92" align="right" alt="Logo del proyecto">
+
 # Análisis de Leads — Tejido Comercial de Valencia
 
 > De **15.160 negocios** en bruto a **1.991 leads cualificados y priorizados**.
@@ -151,9 +153,9 @@ Resultado acotado entre 0 y 100. **Leads "calientes" = score ≥ 75** → **1.99
 
 ---
 
-## 9. Próximos pasos — Power BI
+## 9. Power BI
 
-El CSV puntuado (`valencia_negocios_scored.csv`) es la entrada para un **dashboard en Power BI**:
+El CSV puntuado (`valencia_negocios_scored.csv`) alimenta un **informe en Power BI** (`dashboard/Dashboard_VLC.pbix`), con un **tema de marca propio** (`powerbi/tema_tierra_calida.json`) validado contra el esquema oficial de Microsoft. Previsto:
 - **Mapa** de leads por distrito/sector con filtro por `score`.
 - **Segmentadores** por sector, distrito, banda de precio y "solo núcleo urbano".
 - **Medidas DAX:** nº de leads (`score ≥ 75`), score medio, tasa de leads calientes por sector.
@@ -166,14 +168,19 @@ El CSV puntuado (`valencia_negocios_scored.csv`) es la entrada para un **dashboa
 - **Extracción:** Python + Playwright (scraping del listado de Maps).
 - **Análisis:** pandas (limpieza, modelo de scoring, agregaciones).
 - **Visualización:** matplotlib + contextily (mapas), dashboard HTML autónomo.
-- **Siguiente:** Power BI.
+- **BI:** Power BI, con tema de marca propio en JSON.
 
 ### Estructura del repositorio
 ```
 analisis-leads-valencia/
 ├── README.md
+├── branding/
+│   └── logo.png                          ← logo del proyecto
 ├── dashboard/
-│   └── Analisis_Negocios_Valencia.html   ← dashboard interactivo
+│   ├── Analisis_Negocios_Valencia.html   ← dashboard interactivo (censo)
+│   └── Dashboard_VLC.pbix                ← informe Power BI
+├── powerbi/
+│   └── tema_tierra_calida.json           ← tema de marca para Power BI
 ├── src/
 │   ├── 1_scraping.py      ← extracción de Google Maps
 │   ├── 2_procesado.py     ← limpieza + distritos + precio (ETL)

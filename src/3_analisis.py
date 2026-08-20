@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import contextily as ctx
 from pathlib import Path
 
 # Raíz del proyecto (este script vive en src/, subimos un nivel)
@@ -91,8 +94,8 @@ print(pd.cut(df["score"], bins=[0, 40, 55, 70, 85, 100]).value_counts().sort_ind
 print("\nScore medio por sector:")
 print(df.groupby("sector")["score"].mean().sort_values(ascending=False).round(1))
 
-# Los leads que de verdad merece la pena llamar, en Valencia ciudad
-leads = df[(df["score"] >= 75) & (df["nucleo_urbano"] == True)] \
+# Los leads que de verdad merece la pena llamar, en Valencia ciudad (se reutiliza en las 3 gráficas)
+leads = df[(df["nucleo_urbano"] == True) & (df["score"] >= 75)] \
           .sort_values("score", ascending=False)
 
 print(f"{len(leads)} leads calientes en Valencia ciudad")
@@ -101,8 +104,6 @@ print(f"{len(leads)} leads calientes en Valencia ciudad")
 df.to_csv(BASE / "data" / "valencia_negocios_scored.csv",
           index=False, encoding="utf-8-sig")
 print("Guardado: valencia_negocios_scored.csv")
-
-import matplotlib.pyplot as plt
 
 # score medio por sector, ordenado de menor a mayor
 medias = df.groupby("sector")["score"].mean().sort_values()
@@ -122,12 +123,7 @@ plt.tight_layout()
 plt.savefig(BASE / "img" / "score_por_sector.png", dpi=150, bbox_inches="tight", facecolor="#0e1b24")
 plt.show()
 
-import numpy as np
-import matplotlib.pyplot as plt
-import contextily as ctx
-
 ciudad = df[df["nucleo_urbano"] == True].dropna(subset=["lat", "lng"])
-leads  = ciudad[ciudad["score"] >= 75]
 
 R = 6378137.0
 def a_mercator(lng, lat):
@@ -161,11 +157,6 @@ plt.tight_layout()
 plt.savefig(BASE / "img" / "mapa_leads.png",
             dpi=150, bbox_inches="tight", facecolor="#0e1b24")
 plt.show()
-
-import matplotlib.pyplot as plt
-
-# leads = Valencia ciudad con score >= 75
-leads = df[(df["nucleo_urbano"] == True) & (df["score"] >= 75)]
 
 # contamos leads por sector y ordenamos
 por_sector = leads["sector"].value_counts().sort_values()
