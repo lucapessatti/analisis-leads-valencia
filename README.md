@@ -3,7 +3,7 @@
 # Análisis de Leads — Tejido Comercial de Valencia
 
 > De **15.160 negocios** en bruto a **1.991 leads cualificados y priorizados**.
-> Proyecto end-to-end: construcción del dataset (scraping) → limpieza → modelo de *lead scoring* interpretable → visualización → (siguiente fase) Power BI.
+> Proyecto end-to-end: construcción del dataset (scraping) → limpieza → modelo de *lead scoring* interpretable → visualización web → informe Power BI.
 
 **🔗 [Ver el dashboard interactivo en vivo »](https://lucapessatti.github.io/analisis-leads-valencia/dashboard/Analisis_Negocios_Valencia.html)**
 
@@ -151,15 +151,15 @@ Resultado acotado entre 0 y 100. **Leads "calientes" = score ≥ 75** → **1.99
 
 **Estética:** fondo oscuro `#0e1b24`, acento ámbar `#e8b45c`, contexto neutro `#8fa3b0`, texto `#e6edf2`. Principio: contexto que se retira + un acento cálido.
 
+> **Nota de autoría:** el dashboard web (HTML/CSS/JS) se generó con asistencia de IA a partir del diseño y las decisiones de análisis propias; el modelo de datos, el scoring y los insights (§4–§6) son de autoría propia.
+
 ---
 
 ## 9. Power BI
 
-El CSV puntuado (`valencia_negocios_scored.csv`) alimenta un **informe en Power BI** (`dashboard/Dashboard_VLC.pbix`), con un **tema de marca propio** (`powerbi/tema_tierra_calida.json`) validado contra el esquema oficial de Microsoft. Previsto:
-- **Mapa** de leads por distrito/sector con filtro por `score`.
-- **Segmentadores** por sector, distrito, banda de precio y "solo núcleo urbano".
-- **Medidas DAX:** nº de leads (`score ≥ 75`), score medio, tasa de leads calientes por sector.
-- **Página de "cartera comercial":** tabla priorizada por score con enlace a Maps.
+Informe construido a mano en **Power BI Desktop** (`dashboard/Dashboard_VLC.pbix`) sobre el CSV puntuado, con un **tema de marca propio** (`powerbi/tema_tierra_calida.json`, validado contra el esquema oficial de Microsoft) para mantener la estética del proyecto. Explora el censo de leads por distrito, sector y score.
+
+A diferencia del dashboard web, este informe se construyó íntegramente a través de la interfaz de Power BI Desktop: visuales, formato y tema aplicados a mano.
 
 ---
 
