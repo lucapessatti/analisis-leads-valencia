@@ -1,0 +1,4 @@
+# El dashboard HTML es un artefacto generado por src/4_dashboard.py (incluye el
+# dataset completo embebido como JSON), no código escrito a mano: se excluye de
+# las estadísticas de lenguaje de GitHub para que reflejen el trabajo real (Python).
+dashboard/*.html linguist-generated=true
