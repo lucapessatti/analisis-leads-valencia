@@ -23,5 +23,27 @@
     "callout": { "color": "#3F3A3A" },
     "title": { "color": "#3F3A3A" },
     "header": { "color": "#3F3A3A" }
+  },
+  "visualStyles": {
+    "cardVisual": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#E4D5B7" } }, "transparency": 0 }]
+      }
+    },
+    "card": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#E4D5B7" } }, "transparency": 0 }]
+      }
+    },
+    "multiRowCard": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#E4D5B7" } }, "transparency": 0 }]
+      }
+    },
+    "kpi": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#E4D5B7" } }, "transparency": 0 }]
+      }
+    }
   }
 }
