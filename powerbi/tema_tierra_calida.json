@@ -1,0 +1,27 @@
+{
+  "name": "Tierra Cálida",
+  "dataColors": [
+    "#3F3A3A",
+    "#6E5B5B",
+    "#A78A7F",
+    "#C9B79C",
+    "#E4D5B7"
+  ],
+  "background": "#FFFFFF",
+  "backgroundLight": "#FFFFFF",
+  "backgroundNeutral": "#C9B79C",
+  "foreground": "#3F3A3A",
+  "foregroundNeutralSecondary": "#6E5B5B",
+  "foregroundNeutralTertiary": "#A78A7F",
+  "tableAccent": "#6E5B5B",
+  "maximum": "#3F3A3A",
+  "center": "#A78A7F",
+  "minimum": "#E4D5B7",
+  "null": "#C9B79C",
+  "textClasses": {
+    "label": { "color": "#3F3A3A" },
+    "callout": { "color": "#3F3A3A" },
+    "title": { "color": "#3F3A3A" },
+    "header": { "color": "#3F3A3A" }
+  }
+}
